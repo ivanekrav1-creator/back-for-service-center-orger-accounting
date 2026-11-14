@@ -1,0 +1,8 @@
+components:
+  schemas:
+    Role:
+      type: string
+      description: Роль пользователя
+      enum:
+        - ADMIN
+        - OPERATOR

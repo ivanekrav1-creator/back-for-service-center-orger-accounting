@@ -1,0 +1,10 @@
+components:
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: UUID пользователя
+      schema:
+        type: string
+        format: uuid

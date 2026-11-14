@@ -1,0 +1,64 @@
+components:
+  responses:
+    UserResponse:
+      description: Пользователь найден
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/components/schemas/UserDto'
+
+    UserCreatedResponse:
+      description: Пользователь успешно создан
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/components/schemas/UserDto'
+
+    UserListResponse:
+      description: Список пользователей
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: './schemas.yaml#/components/schemas/UserDto'
+
+
+
+    BadRequestResponse:
+      description: Неверные данные запроса
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/components/schemas/ErrorDto'
+
+    UnauthorizedResponse:
+      description: Пользователь не авторизован
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/components/schemas/ErrorDto'
+
+    ForbiddenResponse:
+      description: Доступ запрещен
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/components/schemas/ErrorDto'
+
+    NotFoundResponse:
+      description: Ресурс не найден
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/components/schemas/ErrorDto'
+
+    ConflictResponse:
+      description: Конфликт данных
+      content:
+        application/json:
+          schema:
+            $ref: './schemas.yaml#/components/schemas/ErrorDto'
+
+    NoContentResponse:
+      description: Операция успешно выполнена

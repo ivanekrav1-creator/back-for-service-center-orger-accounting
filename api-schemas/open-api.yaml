@@ -2,4 +2,121 @@ openapi: 3.0.3
 info:
   title: OpenApi contract
   version: 1.0.0
-paths: {}
+paths:
+  /api/users:
+    post:
+      summary: Создать пользователя
+      description: Создание пользователя администратором
+      operationId: createUser
+      security:
+        - basicAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './common/schemas.yaml#/components/schemas/UserCreateDto'
+      responses:
+        '201':
+          $ref: './common/responses.yaml#/components/responses/UserCreatedResponse'
+        '400':
+          $ref: './common/responses.yaml#/components/responses/BadRequestResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: './common/responses.yaml#/components/responses/ForbiddenResponse'
+        '409':
+          $ref: './common/responses.yaml#/components/responses/ConflictResponse'
+      tags:
+        - Users
+
+    get:
+      summary: Получить список пользователей
+      operationId: getUsers
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+            $ref: './common/responses.yaml#/components/responses/UserListResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: './common/responses.yaml#/components/responses/ForbiddenResponse'
+      tags:
+        - Users
+  /api/users/me:
+    get:
+      summary: Получить текущего пользователя
+      description: Возвращает текущего авторизованного пользователя
+      operationId: getCurrentUser
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          $ref: './common/responses.yaml#/components/responses/UserResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Users
+  /api/users/{userId}:
+    parameters:
+      - $ref: './common/parameters.yaml#/components/parameters/userId'
+    get:
+      summary: Получить пользователя по ID
+      operationId: getUserById
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          $ref: './common/responses.yaml#/components/responses/UserResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: './common/responses.yaml#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Users
+    put:
+      summary: Обновить пользователя
+      operationId: updateUser
+      security:
+        - basicAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './common/schemas.yaml#/components/schemas/UserUpdateDto'
+      responses:
+        '204':
+          $ref: './common/responses.yaml#/components/responses/NoContentResponse'
+        '400':
+          $ref: './common/responses.yaml#/components/responses/BadRequestResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: './common/responses.yaml#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Users
+
+    delete:
+      summary: Удалить пользователя
+      operationId: deleteUser
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          $ref: './common/responses.yaml#/components/responses/NoContentResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: './common/responses.yaml#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Users

@@ -1,16 +1,17 @@
 rootProject.name = "back-for-service-center-order-accountung"
-include("service:service-center")
-include("open-api")
+include("service:service-center",
+    "open-api")
+
 pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
     }
     plugins {
-        val springBootVersion = providers.gradleProperty("springBootVersion").get()
-        val dependencyManagementVersion = providers.gradleProperty("dependencyManagementVersion").get()
-        val openapiGeneratorVersion = providers.gradleProperty("openapiGeneratorVersion").get()
-        val spotlessVersion = providers.gradleProperty("spotlessVersion").get()
+        val springBootVersion: String by settings
+        val dependencyManagementVersion: String by settings
+        val openapiGeneratorVersion: String by settings
+        val spotlessVersion: String by settings
         id("com.diffplug.spotless") version spotlessVersion
         id("org.openapi.generator") version openapiGeneratorVersion
         id("org.springframework.boot") version springBootVersion

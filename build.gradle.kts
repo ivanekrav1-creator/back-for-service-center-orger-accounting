@@ -7,6 +7,7 @@ plugins {
     java
     id("com.diffplug.spotless") apply false
 }
+
 subprojects {
     plugins.apply("com.diffplug.spotless")
     extensions.configure<com.diffplug.gradle.spotless.SpotlessExtension> {

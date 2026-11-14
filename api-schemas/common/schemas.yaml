@@ -1,0 +1,64 @@
+components:
+  schemas:
+    UserDto:
+      type: object
+      description: Пользователь системы
+      required:
+        - id
+        - username
+        - role
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор пользователя
+        username:
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: operator
+        role:
+          $ref: './enums.yaml#/components/schemas/Role'
+
+    UserCreateDto:
+      type: object
+      description: Данные для создания пользователя
+      required:
+        - username
+        - password
+        - role
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 50
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 100
+        role:
+          $ref: './enums.yaml#/components/schemas/Role'
+
+    UserUpdateDto:
+      type: object
+      description: Данные для изменения пользователя
+      required:
+        - role
+      properties:
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 100
+        role:
+          $ref: './enums.yaml#/components/schemas/Role'
+
+    ErrorDto:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: Некорректные данные запроса
