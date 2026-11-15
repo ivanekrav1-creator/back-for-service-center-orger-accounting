@@ -43,9 +43,11 @@ components:
     UserUpdateDto:
       type: object
       description: Данные для изменения пользователя
-      required:
-        - role
       properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 50
         password:
           type: string
           format: password

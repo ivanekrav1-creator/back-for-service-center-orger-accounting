@@ -79,7 +79,7 @@ paths:
           $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
       tags:
         - Users
-    put:
+    patch:
       summary: Обновить пользователя
       operationId: updateUser
       security:
