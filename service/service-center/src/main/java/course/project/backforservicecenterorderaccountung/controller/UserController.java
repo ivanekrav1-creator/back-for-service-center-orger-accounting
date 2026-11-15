@@ -37,8 +37,10 @@ public class UserController implements UsersApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<Void> deleteUser(UUID userId) {
-    return null;
+    userService.deleteUser(userId);
+    return ResponseEntity.noContent().build();
   }
 
   @Override
@@ -48,6 +50,7 @@ public class UserController implements UsersApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<UserDto> getUserById(UUID userId) {
     User user = userService.getUserById(userId);
     return ResponseEntity.ok(mapToDto(user));
@@ -62,7 +65,8 @@ public class UserController implements UsersApi {
 
   @Override
   public ResponseEntity<Void> updateUser(UUID userId, UserUpdateDto userUpdateDto) {
-    return null;
+    userService.updateUser(userId, userUpdateDto);
+    return ResponseEntity.noContent().build();
   }
 
   private UserDto mapToDto(User user) {
