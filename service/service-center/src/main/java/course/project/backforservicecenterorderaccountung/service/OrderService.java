@@ -1,6 +1,7 @@
 package course.project.backforservicecenterorderaccountung.service;
 
 import course.project.backforservicecenterorderaccountung.exeption.EntityNotFoundException;
+import course.project.backforservicecenterorderaccountung.exeption.InvalidOrderException;
 import course.project.backforservicecenterorderaccountung.order.entity.Order;
 import course.project.backforservicecenterorderaccountung.order.repository.OrderRepository;
 import java.time.LocalDate;
@@ -21,6 +22,10 @@ public class OrderService {
 
   @Transactional
   public Order createOrder(OrderCreateDto dto) {
+    if (dto.getPlannedIssueDate().isBefore(LocalDate.now())) {
+      throw new InvalidOrderException(
+              "Плановая дата выдачи не может быть раньше даты приёма");
+    }
     Order order =
         new Order(
             dto.getProductName(),
