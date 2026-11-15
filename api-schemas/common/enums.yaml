@@ -6,3 +6,9 @@ components:
       enum:
         - ADMIN
         - OPERATOR
+    OrderStatus:
+      type: string
+      description: Статус заказа
+      enum:
+        - IN_PROGRESS
+        - COMPLETED

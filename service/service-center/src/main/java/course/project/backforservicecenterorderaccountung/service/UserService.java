@@ -1,8 +1,9 @@
 package course.project.backforservicecenterorderaccountung.service;
 
+import course.project.backforservicecenterorderaccountung.exeption.EntityNotFoundException;
 import course.project.backforservicecenterorderaccountung.user.entity.User;
 import course.project.backforservicecenterorderaccountung.user.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+
 import java.util.List;
 import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
