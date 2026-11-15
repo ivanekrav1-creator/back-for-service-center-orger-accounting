@@ -120,3 +120,133 @@ paths:
           $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
       tags:
         - Users
+  /api/orders:
+    get:
+      summary: Получить список заказов
+      operationId: getOrders
+      security:
+        - basicAuth: [ ]
+      parameters:
+        - $ref: './common/parameters.yaml#/components/parameters/status'
+        - $ref: './common/parameters.yaml#/components/parameters/from'
+        - $ref: './common/parameters.yaml#/components/parameters/to'
+      responses:
+        '200':
+          $ref: './common/responses.yaml#/components/responses/OrderListResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+      tags:
+        - Orders
+
+    post:
+      summary: Создать заказ
+      operationId: createOrder
+      security:
+        - basicAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './common/schemas.yaml#/components/schemas/OrderCreateDto'
+      responses:
+        '201':
+          $ref: './common/responses.yaml#/components/responses/OrderCreatedResponse'
+        '400':
+          $ref: './common/responses.yaml#/components/responses/BadRequestResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+      tags:
+        - Orders
+
+  /api/orders/uncompleted:
+    get:
+      summary: Получить невыполненные заказы
+      description: Сначала возвращаются просроченные заказы, затем ожидающие выполнения
+      operationId: getUncompletedOrders
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          $ref: './common/responses.yaml#/components/responses/OrderListResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+      tags:
+        - Orders
+
+  /api/orders/income:
+    get:
+      summary: Рассчитать общий доход за период
+      operationId: getIncome
+      security:
+        - basicAuth: [ ]
+      parameters:
+        - $ref: './common/parameters.yaml#/components/parameters/fromRequired'
+        - $ref: './common/parameters.yaml#/components/parameters/toRequired'
+      responses:
+        '200':
+          $ref: './common/responses.yaml#/components/responses/IncomeResponse'
+        '400':
+          $ref: './common/responses.yaml#/components/responses/BadRequestResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+      tags:
+        - Orders
+
+  /api/orders/{orderId}:
+    parameters:
+      - $ref: './common/parameters.yaml#/components/parameters/orderId'
+    get:
+      summary: Получить заказ по ID
+      operationId: getOrderById
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          $ref: './common/responses.yaml#/components/responses/OrderResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Orders
+
+    patch:
+      summary: Обновить заказ
+      operationId: updateOrder
+      security:
+        - basicAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './common/schemas.yaml#/components/schemas/OrderUpdateDto'
+      responses:
+        '204':
+          $ref: './common/responses.yaml#/components/responses/NoContentResponse'
+        '400':
+          $ref: './common/responses.yaml#/components/responses/BadRequestResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Orders
+
+    delete:
+      summary: Удалить заказ
+      operationId: deleteOrder
+      security:
+        - basicAuth: [ ]
+      responses:
+        '204':
+          $ref: './common/responses.yaml#/components/responses/NoContentResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '403':
+          $ref: './common/responses.yaml#/components/responses/ForbiddenResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Orders

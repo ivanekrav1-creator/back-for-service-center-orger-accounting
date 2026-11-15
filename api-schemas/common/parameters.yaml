@@ -8,3 +8,55 @@ components:
       schema:
         type: string
         format: uuid
+    orderId:
+      name: orderId
+      in: path
+      required: true
+      description: UUID заказа
+      schema:
+        type: string
+        format: uuid
+
+    status:
+      name: status
+      in: query
+      required: false
+      description: Фильтр по статусу заказа
+      schema:
+        $ref: './enums.yaml#/components/schemas/OrderStatus'
+
+    from:
+      name: from
+      in: query
+      required: false
+      description: Начало периода фильтрации
+      schema:
+        type: string
+        format: date
+
+    to:
+      name: to
+      in: query
+      required: false
+      description: Конец периода фильтрации
+      schema:
+        type: string
+        format: date
+
+    fromRequired:
+      name: from
+      in: query
+      required: true
+      description: Начало периода расчета дохода
+      schema:
+        type: string
+        format: date
+
+    toRequired:
+      name: to
+      in: query
+      required: true
+      description: Конец периода расчета дохода
+      schema:
+        type: string
+        format: date
