@@ -2,6 +2,7 @@ package course.project.backforservicecenterorderaccountung.handler;
 
 import course.project.backforservicecenterorderaccountung.exeption.EntityAlreadyExistsException;
 import course.project.backforservicecenterorderaccountung.exeption.EntityNotFoundException;
+import course.project.backforservicecenterorderaccountung.exeption.InvalidOrderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -45,5 +46,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorDto("Внутренняя ошибка сервера"));
+    }
+    @ExceptionHandler(InvalidOrderException.class)
+    public ResponseEntity<ErrorDto> handleInvalidOrder(InvalidOrderException exception) {
+        return ResponseEntity.badRequest()
+                .body(new ErrorDto(exception.getMessage()));
     }
 }
