@@ -30,6 +30,7 @@ public class User {
   private Role role;
 
   public User() {}
+
   public User(String username, String password, Role role) {
     this.username = username;
     this.password = password;
@@ -39,6 +40,7 @@ public class User {
   public UUID getId() {
     return id;
   }
+
   public String getUsername() {
     return username;
   }
