@@ -73,7 +73,9 @@ public class OrderController implements OrdersApi {
 
   @Override
   public ResponseEntity<List<OrderDto>> getUncompletedOrders() {
-    return null;
+    List<OrderDto> orders =
+        orderService.getUncompletedOrders().stream().map(this::mapToDto).toList();
+    return ResponseEntity.ok(orders);
   }
 
   @Override

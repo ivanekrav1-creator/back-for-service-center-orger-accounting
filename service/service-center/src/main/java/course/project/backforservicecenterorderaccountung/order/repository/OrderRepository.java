@@ -38,4 +38,18 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
       @Param("status") OrderStatus status,
       @Param("from") LocalDate from,
       @Param("to") LocalDate to);
+
+  @Query(
+      """
+    SELECT o
+    FROM Order o
+    WHERE o.status = :status
+    ORDER BY
+        CASE
+            WHEN o.plannedIssueDate < CURRENT_DATE THEN 0
+            ELSE 1
+        END,
+        o.plannedIssueDate ASC
+    """)
+  List<Order> findUncompletedOrders(@Param("status") OrderStatus status);
 }
