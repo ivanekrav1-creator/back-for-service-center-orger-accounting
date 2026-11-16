@@ -82,7 +82,8 @@ public class OrderService {
       throw new BadRequestException("Нельзя изменить завершённый заказ");
     }
 
-    if (orderUpdateDto.getPlannedIssueDate().isBefore(order.getAcceptanceDate())) {
+    if (orderUpdateDto.getPlannedIssueDate() != null
+        && orderUpdateDto.getPlannedIssueDate().isBefore(order.getAcceptanceDate())) {
       throw new BadRequestException("Плановая дата выдачи не может быть раньше даты приёмки");
     }
     order.update(orderUpdateDto);
