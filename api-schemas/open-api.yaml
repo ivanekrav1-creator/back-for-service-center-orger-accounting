@@ -261,6 +261,8 @@ paths:
       responses:
         '200':
           $ref: './common/responses.yaml#/components/responses/OrderResponse'
+        '400':
+          $ref: './common/responses.yaml#/components/responses/BadRequestResponse'
         '401':
           $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
         '404':

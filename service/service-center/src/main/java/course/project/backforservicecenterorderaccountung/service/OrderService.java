@@ -65,6 +65,9 @@ public class OrderService {
         orderRepository
             .findById(orderId)
             .orElseThrow(() -> new EntityNotFoundException("Заказ не найден: " + orderId));
+    if (order.getStatus() == OrderStatus.COMPLETED) {
+      throw new BadRequestException("Заказ уже завершён");
+    }
     order.complete();
     return orderRepository.save(order);
   }
@@ -75,6 +78,13 @@ public class OrderService {
         orderRepository
             .findById(orderId)
             .orElseThrow(() -> new EntityNotFoundException("Заказ не найден: " + orderId));
+    if (order.getStatus() == OrderStatus.COMPLETED) {
+      throw new BadRequestException("Нельзя изменить завершённый заказ");
+    }
+
+    if (orderUpdateDto.getPlannedIssueDate().isBefore(order.getAcceptanceDate())) {
+      throw new BadRequestException("Плановая дата выдачи не может быть раньше даты приёмки");
+    }
     order.update(orderUpdateDto);
     orderRepository.save(order);
   }
