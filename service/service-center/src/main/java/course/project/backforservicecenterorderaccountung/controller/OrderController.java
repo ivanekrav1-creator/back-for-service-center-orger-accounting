@@ -2,6 +2,7 @@ package course.project.backforservicecenterorderaccountung.controller;
 
 import course.project.backforservicecenterorderaccountung.order.entity.Order;
 import course.project.backforservicecenterorderaccountung.service.OrderService;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,12 @@ public class OrderController implements OrdersApi {
   }
 
   @Override
+  public ResponseEntity<OrderDto> completeOrder(UUID orderId) {
+    Order order = orderService.completeOrder(orderId);
+    return ResponseEntity.ok(mapToDto(order));
+  }
+
+  @Override
   public ResponseEntity<OrderDto> createOrder(OrderCreateDto orderCreateDto) {
     Order order = orderService.createOrder(orderCreateDto);
     OrderDto response = mapToDto(order);
@@ -39,12 +46,15 @@ public class OrderController implements OrdersApi {
 
   @Override
   public ResponseEntity<Void> deleteOrder(UUID orderId) {
-    return null;
+    orderService.deleteOrder(orderId);
+    return ResponseEntity.noContent().build();
   }
 
   @Override
   public ResponseEntity<IncomeDto> getIncome(LocalDate from, LocalDate to) {
-    return null;
+    BigDecimal total = orderService.getIncome(from, to);
+    IncomeDto response = new IncomeDto().from(from).to(to).total(total);
+    return ResponseEntity.ok(response);
   }
 
   @Override
@@ -68,7 +78,8 @@ public class OrderController implements OrdersApi {
 
   @Override
   public ResponseEntity<Void> updateOrder(UUID orderId, OrderUpdateDto orderUpdateDto) {
-    return null;
+    orderService.updateOrder(orderId, orderUpdateDto);
+    return ResponseEntity.noContent().build();
   }
 
   private OrderDto mapToDto(Order order) {
