@@ -39,12 +39,10 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
-  @Transactional
   public List<Order> getOrders(LocalDate from, LocalDate to, OrderStatus status) {
     return orderRepository.findOrders(status, from, to);
   }
 
-  @Transactional
   public Order getOrderById(UUID orderId) {
     return orderRepository
         .findById(orderId)
@@ -95,5 +93,9 @@ public class OrderService {
       throw new BadRequestException("Начальная дата не может быть позже конечной");
     }
     return orderRepository.calculateIncome(OrderStatus.COMPLETED, from, to);
+  }
+
+  public List<Order> getUncompletedOrders() {
+    return orderRepository.findUncompletedOrders(OrderStatus.IN_PROGRESS);
   }
 }
