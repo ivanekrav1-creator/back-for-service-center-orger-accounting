@@ -250,3 +250,20 @@ paths:
           $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
       tags:
         - Orders
+  /api/orders/{orderId}/complete:
+    parameters:
+      - $ref: './common/parameters.yaml#/components/parameters/orderId'
+    patch:
+      summary: Завершить заказ
+      operationId: completeOrder
+      security:
+        - basicAuth: [ ]
+      responses:
+        '200':
+          $ref: './common/responses.yaml#/components/responses/OrderResponse'
+        '401':
+          $ref: './common/responses.yaml#/components/responses/UnauthorizedResponse'
+        '404':
+          $ref: './common/responses.yaml#/components/responses/NotFoundResponse'
+      tags:
+        - Orders

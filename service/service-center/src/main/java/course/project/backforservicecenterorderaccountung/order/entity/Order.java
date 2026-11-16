@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 import service.center.model.OrderStatus;
+import service.center.model.OrderUpdateDto;
 
 @Entity
 @Table(name = "orders")
@@ -140,8 +141,32 @@ public class Order {
     this.issueDate = issueDate;
   }
 
-  public void complete(OrderStatus status) {
+  public void complete() {
+    if (this.status == OrderStatus.COMPLETED) {
+      throw new IllegalStateException("Order is already completed");
+    }
     this.status = OrderStatus.COMPLETED;
     this.issueDate = LocalDate.now();
+  }
+
+  public void update(OrderUpdateDto dto) {
+    if (dto.getProductName() != null) {
+      this.productName = dto.getProductName();
+    }
+    if (dto.getBrand() != null) {
+      this.brand = dto.getBrand();
+    }
+    if (dto.getOwnerFio() != null) {
+      this.ownerFio = dto.getOwnerFio();
+    }
+    if (dto.getOwnerPhone() != null) {
+      this.ownerPhone = dto.getOwnerPhone();
+    }
+    if (dto.getRepairCost() != null) {
+      this.repairCost = dto.getRepairCost();
+    }
+    if (dto.getPlannedIssueDate() != null) {
+      this.plannedIssueDate = dto.getPlannedIssueDate();
+    }
   }
 }
