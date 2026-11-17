@@ -40,7 +40,8 @@ public class UserService {
   public User getUserById(UUID userId) {
     return userRepository
         .findById(userId)
-        .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+        .orElseThrow(
+            () -> new EntityNotFoundException("Пользователь с id: " + userId + " не найден"));
   }
 
   public User getCurrentUser() {
@@ -48,12 +49,13 @@ public class UserService {
     return userRepository
         .findByUsername(username)
         .orElseThrow(
-            () -> new EntityNotFoundException("User not found with username: " + username));
+            () ->
+                new EntityNotFoundException("Пользователь с username: " + username + " не найден"));
   }
 
   public void deleteUser(UUID userId) {
     if (!userRepository.existsById(userId)) {
-      throw new EntityNotFoundException("User not found with id: " + userId);
+      throw new EntityNotFoundException("Пользователь с id: " + userId + " не найден");
     }
     userRepository.deleteById(userId);
   }
@@ -62,7 +64,8 @@ public class UserService {
     User user =
         userRepository
             .findById(userId)
-            .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+            .orElseThrow(
+                () -> new EntityNotFoundException("Пользователь с id: " + userId + " не найден"));
     if (dto.getUsername() != null) {
       user.setUsername(dto.getUsername());
     }

@@ -64,6 +64,7 @@ public class UserController implements UsersApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<Void> updateUser(UUID userId, UserUpdateDto userUpdateDto) {
     userService.updateUser(userId, userUpdateDto);
     return ResponseEntity.noContent().build();
